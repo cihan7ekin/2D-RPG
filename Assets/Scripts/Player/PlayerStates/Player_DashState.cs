@@ -13,20 +13,22 @@ public class Player_DashState : PlayerState
     {
         base.Enter();
 
+        skillManager.dash.OnStartEffect();
+        player.vfx.DoImageEchoEffect(player.dashDuration);
+
         dashDir = player.moveInput.x != 0 ? ((int)player.moveInput.x) : player.facingDir;
         stateTimer = player.dashDuration;
 
         originalGravityScale = rb.gravityScale;
         rb.gravityScale = 0;
-    }
 
+    }
 
     public override void Update()
     {
         base.Update();
         CancelDashIfNeeded();
         player.SetVelocity(player.dashSpeed * dashDir, 0);
-
 
         if (stateTimer < 0)
         {
@@ -42,6 +44,8 @@ public class Player_DashState : PlayerState
         base.Exit();
         player.SetVelocity(0, 0);
         rb.gravityScale = originalGravityScale;
+
+        skillManager.dash.OnEndEffect();
     }
 
     private void CancelDashIfNeeded()

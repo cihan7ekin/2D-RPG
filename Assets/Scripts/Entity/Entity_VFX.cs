@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Entity_VFX : MonoBehaviour
 {
-
-    private SpriteRenderer sr;
+    protected SpriteRenderer sr;
     private Entity entity;
 
     [Header("On Taking Damage VFX")]
@@ -42,9 +41,9 @@ public class Entity_VFX : MonoBehaviour
         if (element == ElementType.Fire)
             StartCoroutine(PlayStatusVfxCo(duration, burnVfx));
 
-        if(element == ElementType.Lightning)
+        if (element == ElementType.Lightning)
             StartCoroutine(PlayStatusVfxCo(duration, electrifyVfx));
-            
+
     }
 
     public void StopAllVfx()
@@ -76,7 +75,7 @@ public class Entity_VFX : MonoBehaviour
         sr.color = Color.white;
     }
 
-    public void CreateOnHitVFX(Transform target,bool isCrit)
+    public void CreateOnHitVFX(Transform target, bool isCrit)
     {
         GameObject hitPrefab = isCrit ? critHitVfx : hitVfx;
         GameObject vfx = Instantiate(hitPrefab, target.position, Quaternion.identity);
@@ -91,13 +90,13 @@ public class Entity_VFX : MonoBehaviour
         if (element == ElementType.Ice)
             hitVfxColor = chillVfx;
 
-        if(element == ElementType.None)
+        if (element == ElementType.None)
             hitVfxColor = originalHitVfxColor;
     }
 
     public void PlayOnDamageVfx()
     {
-        if(onDamageVfxCoroutine != null)
+        if (onDamageVfxCoroutine != null)
             StopCoroutine(onDamageVfxCoroutine);
 
         onDamageVfxCoroutine = StartCoroutine(OnDamageVfxCo());

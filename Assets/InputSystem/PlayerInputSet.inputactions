@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInputSet",
     "maps": [
         {
@@ -54,6 +55,15 @@
                     "name": "ToggleSkillTreeUI",
                     "type": "Button",
                     "id": "1640d07b-968c-4742-ac1a-647a91e1c200",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Spell",
+                    "type": "Button",
+                    "id": "ee96a7b8-6dfe-41aa-a222-9c9894a3375f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -168,6 +178,17 @@
                     "processors": "",
                     "groups": ";Keyboard & Mouse",
                     "action": "ToggleSkillTreeUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5606ddf2-2521-47ef-8afd-4e65e3a87708",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard & Mouse",
+                    "action": "Spell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
