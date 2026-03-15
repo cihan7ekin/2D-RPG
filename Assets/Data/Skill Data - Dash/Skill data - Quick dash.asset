@@ -11,11 +11,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b05f30c54261b84c806ef06deeb4a03, type: 3}
   m_Name: Skill data - Quick dash
-  m_EditorClassIdentifier: Assembly-CSharp::Skill_DataSO
+  m_EditorClassIdentifier: 
   cost: 0
+  unlockedByDefault: 1
   skillType: 0
   upgradeData:
-    upgradeType: 0
+    upgradeType: 1
     cooldown: 3
   displayName: Quick dash
   description: 'Dash to avoid attacks.

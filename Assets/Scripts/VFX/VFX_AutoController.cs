@@ -10,17 +10,16 @@ public class VFX_AutoController : MonoBehaviour
     [Space]
     [SerializeField] private bool randomOffset = true;
     [SerializeField] private bool randomRotation = true;
-    [Space]
-
     [Header("Fade effect")]
-    [SerializeField] private bool canFade = false;
-    [SerializeField] private float fadeSpeed = 1f;
+    [SerializeField] private bool canFade;
+    [SerializeField] private float fadeSpeed = 1;
+
 
     [Header("Random rotation")]
     [SerializeField] private float minRotation = 0;
     [SerializeField] private float maxRotation = 360;
 
-    [Header("Random Position")]
+    [Header("Random position")]
     [SerializeField] private float xMinOffset = -.3f;
     [SerializeField] private float xMaxOffset = .3f;
     [Space]
@@ -32,6 +31,7 @@ public class VFX_AutoController : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
+
     private void Start()
     {
         if (canFade)
@@ -40,7 +40,7 @@ public class VFX_AutoController : MonoBehaviour
         ApplyRandomOffset();
         ApplyRandomRotation();
 
-        if (autoDestroy)
+        if(autoDestroy)
             Destroy(gameObject, destroyDelay);
     }
 
@@ -71,7 +71,7 @@ public class VFX_AutoController : MonoBehaviour
 
     private void ApplyRandomRotation()
     {
-        if (randomRotation == false)
+        if(randomRotation == false)
             return;
 
         float zRotation = Random.Range(minRotation, maxRotation);

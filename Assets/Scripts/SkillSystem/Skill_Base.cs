@@ -2,34 +2,55 @@ using UnityEngine;
 
 public class Skill_Base : MonoBehaviour
 {
+    public Player_SkillManager skillManager { get; private set; }
+    public Player player { get ; private set; }
+    public DamageScaleData damageScaleData { get; private set; }
+
+
     [Header("General details")]
     [SerializeField] protected SkillType skillType;
     [SerializeField] protected SkillUpgradeType upgradeType;
-    [SerializeField] private float coolDown;
+    [SerializeField] protected float cooldown;
     private float lastTimeUsed;
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        lastTimeUsed = Time.time - coolDown;
+        skillManager = GetComponentInParent<Player_SkillManager>();
+        player = GetComponentInParent<Player>();
+        lastTimeUsed = lastTimeUsed - cooldown;
     }
 
-    public void SetSkillUpgrade(UpgradeData upgradeData)
+    public virtual void TryUseSkill()
     {
-        upgradeType = upgradeData.upgradeType;
-        coolDown = upgradeData.cooldown;
+
     }
 
-    public bool Unlocked(SkillUpgradeType upgradeToCheck) => upgradeToCheck == upgradeType;
+    public void SetSkillUpgrade(UpgradeData upgrade)
+    {
+        upgradeType = upgrade.upgradeType;
+        cooldown = upgrade.cooldown;
+        damageScaleData = upgrade.damageScaleData;
+    }
 
     public bool CanUseSkill()
     {
-        if (OnCooldown())
+        if(upgradeType == SkillUpgradeType.None)
             return false;
 
-        return true;
+        if (OnCooldown())
+        {
+            Debug.Log("On Cooldown");
+            return false;
+        }
+
+        return true;    
     }
 
-    private bool OnCooldown() => Time.time < lastTimeUsed + coolDown;
-    public float SetOnCooldown() => lastTimeUsed = Time.time;
-    public float SetOnCooldownBy(float cooldownReduction) => lastTimeUsed += cooldownReduction;
+    protected bool Unlocked(SkillUpgradeType upgradeToCheck) => upgradeType == upgradeToCheck;
+
+
+    protected bool OnCooldown() => Time.time < lastTimeUsed + cooldown;
+    public void SetSkillOnCooldown() => lastTimeUsed = Time.time;
+    public void ResetCooldownBy(float cooldownReduction) => lastTimeUsed = lastTimeUsed + cooldownReduction;
+    public void ResetCooldown() => lastTimeUsed = Time.time;
 }

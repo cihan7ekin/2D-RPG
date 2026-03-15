@@ -149,7 +149,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Spell"",
                     ""type"": ""Button"",
-                    ""id"": ""ee96a7b8-6dfe-41aa-a222-9c9894a3375f"",
+                    ""id"": ""713165b8-effb-4276-bf74-8db0b336f708"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -269,7 +269,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5606ddf2-2521-47ef-8afd-4e65e3a87708"",
+                    ""id"": ""a9e16f60-0571-44a7-8042-d7930f0a8fb3"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",

@@ -21,14 +21,15 @@ public class Player_DashState : PlayerState
 
         originalGravityScale = rb.gravityScale;
         rb.gravityScale = 0;
-
     }
+
 
     public override void Update()
     {
         base.Update();
         CancelDashIfNeeded();
         player.SetVelocity(player.dashSpeed * dashDir, 0);
+
 
         if (stateTimer < 0)
         {
@@ -42,10 +43,11 @@ public class Player_DashState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.SetVelocity(0, 0);
-        rb.gravityScale = originalGravityScale;
 
         skillManager.dash.OnEndEffect();
+
+        player.SetVelocity(0, 0);
+        rb.gravityScale = originalGravityScale;
     }
 
     private void CancelDashIfNeeded()

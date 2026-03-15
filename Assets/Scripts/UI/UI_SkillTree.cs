@@ -4,7 +4,7 @@ public class UI_SkillTree : MonoBehaviour
 {
     [SerializeField] private int skillPoints;
     [SerializeField] private UI_TreeConnectHandler[] parentNodes;
-    public Player_SkillManager skillManager { get; private set; }
+    public Player_SkillManager skillManager { get ; private set; }
 
     private void Awake()
     {
@@ -15,6 +15,7 @@ public class UI_SkillTree : MonoBehaviour
     {
         UpdateAllConnections();
     }
+
 
 
     [ContextMenu("Reset Skill Tree")]
