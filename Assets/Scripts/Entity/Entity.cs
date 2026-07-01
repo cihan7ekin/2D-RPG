@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour
     public int facingDir { get; private set; } = 1;
 
     [Header("Collision detection")]
-    [SerializeField] protected LayerMask whatIsGround;
+    public LayerMask whatIsGround;
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private Transform groundCheck;
@@ -62,12 +62,18 @@ public class Entity : MonoBehaviour
 
     }
 
-    public virtual void SlowDownEntity(float duration, float slowMultiplier)
+    public virtual void SlowDownEntity(float duration, float slowMultiplier, bool canOverrideSlowEffect = false)
     {
-        if(slowDownCo != null)
-            StopCoroutine(slowDownCo);
+        if (slowDownCo != null)
+        {
+            if (canOverrideSlowEffect)
+                StopCoroutine(slowDownCo);
+            else
+                return;
+        }
 
-        slowDownCo = StartCoroutine(SlowDownEntityCo(duration,slowMultiplier));
+
+        slowDownCo = StartCoroutine(SlowDownEntityCo(duration, slowMultiplier));
     }
 
     protected virtual IEnumerator SlowDownEntityCo(float duration, float slowMultiplier)
@@ -75,9 +81,14 @@ public class Entity : MonoBehaviour
         yield return null;
     }
 
+    public virtual void StopSlowDown()
+    {
+        slowDownCo = null;
+    }
+
     public void ReciveKnockback(Vector2 knockback, float duration)
     {
-        if(knockbackCo != null)
+        if (knockbackCo != null)
             StopCoroutine(knockbackCo);
 
         knockbackCo = StartCoroutine(KnockbackCo(knockback, duration));
@@ -137,7 +148,7 @@ public class Entity : MonoBehaviour
         Gizmos.DrawLine(groundCheck.position, groundCheck.position + new Vector3(0, -groundCheckDistance));
         Gizmos.DrawLine(primaryWallCheck.position, primaryWallCheck.position + new Vector3(wallCheckDistance * facingDir, 0));
 
-        if(secondaryWallCheck != null)
+        if (secondaryWallCheck != null)
             Gizmos.DrawLine(secondaryWallCheck.position, secondaryWallCheck.position + new Vector3(wallCheckDistance * facingDir, 0));
     }
 }

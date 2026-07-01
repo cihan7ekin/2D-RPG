@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Skill_Dash : Skill_Base
 {
-    
+
     public void OnStartEffect()
     {
         if (Unlocked(SkillUpgradeType.Dash_CloneOnStart) || Unlocked(SkillUpgradeType.Dash_CloneOnStartAndArrival))
@@ -30,7 +30,6 @@ public class Skill_Dash : Skill_Base
 
     private void CreateClone()
     {
-        Debug.Log("Create time echo!;");
-        // skill manager clone create clone
+        skillManager.timeEcho.CreateTimeEcho();
     }
 }

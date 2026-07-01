@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    public Enemy_Health health { get; private set; }
     public Enemy_IdleState idleState;
     public Enemy_MoveState moveState;
     public Enemy_AttackState attackState;
@@ -25,7 +26,7 @@ public class Enemy : Entity
     [Header("Movement details")]
     public float idleTime = 2;
     public float moveSpeed = 1.4f;
-    [Range(0,2)]
+    [Range(0, 2)]
     public float moveAnimSpeedMultiplier = 1;
 
     [Header("Player detection")]
@@ -34,23 +35,35 @@ public class Enemy : Entity
     [SerializeField] private float playerCheckDistance = 10;
     public Transform player { get; private set; }
 
+    public float activeSlowMultiplier { get; private set; } = 1f;
+
+    public float GetMoveSpeed() => moveSpeed * activeSlowMultiplier;
+    public float GetBattleMoveSpeed() => battleMoveSpeed * activeSlowMultiplier;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        health = GetComponent<Enemy_Health>();
+    }
+
     protected override IEnumerator SlowDownEntityCo(float duration, float slowMultiplier)
     {
-        float originalMoveSpeed = moveSpeed;
-        float originalBattleSpeed = battleMoveSpeed;
-        float originalAnimSpeed = anim.speed;
 
-        float speedMultiplier = 1 - slowMultiplier;
+        activeSlowMultiplier = 1 - slowMultiplier;
 
-        moveSpeed = moveSpeed * speedMultiplier;
-        battleMoveSpeed = battleMoveSpeed * speedMultiplier;
-        anim.speed = anim.speed * speedMultiplier;
-        
+        anim.speed = anim.speed * activeSlowMultiplier;
+
         yield return new WaitForSeconds(duration);
 
-        moveSpeed = originalMoveSpeed;
-        battleMoveSpeed = originalBattleSpeed;
-        anim.speed = originalAnimSpeed;
+        StopSlowDown();
+    }
+
+    public override void StopSlowDown()
+    {
+        activeSlowMultiplier = 1f;
+        anim.speed = 1f;
+        base.StopSlowDown();
     }
 
     public void EnableCounterWindow(bool enable) => canBeStunned = enable;
@@ -118,6 +131,6 @@ public class Enemy : Entity
 
     private void OnDisable()
     {
-       Player.OnPlayerDeath -= HandlePlayerDeath;  
+        Player.OnPlayerDeath -= HandlePlayerDeath;
     }
 }

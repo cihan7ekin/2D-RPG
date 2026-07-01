@@ -53,6 +53,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -74,6 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1831899741
   m_SortingLayer: -1
   m_SortingOrder: 1
@@ -156,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1281f48e16181154c9e967cb30033085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHitVfx: {fileID: 6112724607161003390, guid: a092b215b1103c34982cf4ba009e0fed, type: 3}
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
